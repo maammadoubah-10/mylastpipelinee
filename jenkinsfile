@@ -9,8 +9,8 @@ pipeline {
 
     stages {
         stage('Checkout Code') {
-             steps {
-                git branch: 'main', url: 'https://github.com/maammadoubah-10/mylastpipelinee.git'
+            steps {
+                git branch: 'main', credentialsId: 'github-credentials', url: 'https://github.com/maammadoubah-10/mylastpipelinee.git'
             }
         }
 
@@ -73,8 +73,6 @@ pipeline {
             }
         }
 
-        }
-
         stage('Build Docker Images') {
             parallel {
                 stage('Build ms-classes') {
@@ -101,7 +99,12 @@ pipeline {
         stage('Push Docker Images') {
             steps {
                 sh "docker login -u $REGISTRY_CREDENTIALS_USR -p $REGISTRY_CREDENTIALS_PSW $REGISTRY"
-                sh "docker push $REGISTRY/*"
+                sh "docker push $REGISTRY/ms-classes"
+                sh "docker push $REGISTRY/ms-cours"
+                sh "docker push $REGISTRY/ms-emplois"
+                sh "docker push $REGISTRY/ms-etudiants"
+                sh "docker push $REGISTRY/ms-professeurs"
+                sh "docker push $REGISTRY/$IMAGE_FRONTEND"
             }
         }
 
