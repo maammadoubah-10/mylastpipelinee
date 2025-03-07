@@ -98,7 +98,7 @@ pipeline {
         stage('Push Docker Images') {
             steps {
                 sh "echo 'Connexion à Docker Hub...'"
-                sh "docker login -u  -p ton_mot_de_passe_docker"
+                sh "docker login -u mamadouba634 -p momoba2000"
                 sh "docker push $REGISTRY/ms-classes"
                 sh "docker push $REGISTRY/ms-cours"
                 sh "docker push $REGISTRY/ms-emplois"
