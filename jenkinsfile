@@ -3,14 +3,13 @@ pipeline {
 
     environment {
         REGISTRY = 'docker.io'
-        REGISTRY_CREDENTIALS = credentials('docker-hub-credentials')
         IMAGE_FRONTEND = 'gestion-etablissement-frontend'
     }
 
     stages {
         stage('Checkout Code') {
             steps {
-                git branch: 'main', credentialsId: 'github-credentials', url: 'https://github.com/maammadoubah-10/mylastpipelinee.git'
+                git branch: 'main', url: 'https://github.com/maammadoubah-10/mylastpipelinee.git'
             }
         }
 
@@ -98,7 +97,8 @@ pipeline {
 
         stage('Push Docker Images') {
             steps {
-                sh "docker login -u $REGISTRY_CREDENTIALS_USR -p $REGISTRY_CREDENTIALS_PSW $REGISTRY"
+                sh "echo 'Connexion à Docker Hub...'"
+                sh "docker login -u  -p ton_mot_de_passe_docker"
                 sh "docker push $REGISTRY/ms-classes"
                 sh "docker push $REGISTRY/ms-cours"
                 sh "docker push $REGISTRY/ms-emplois"
